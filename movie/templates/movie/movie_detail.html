@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{movie.title}}</title>
+    <link rel="stylesheet" href="{% static 'movie\css\style.css'%}">
+</head>
+<body>
+    <img src="{{movie.poster.url}}" alt="">
+    <h1>{{movie.title}}</h1>
+    <h2>{{movie.description}}</h2>
+
+    {% if movie.trailer.url != Null %}
+    <video controls mute >
+        <source src="{{movie.trailer.url}}">
+    </video>
+    {% endif %}
+
+    {% if movie.trailer.url != Null %}
+    <video controls mute >
+        <source src="{{movie.trailer.url}}">
+    </video>
+    {% endif %}
+ <section>
+     <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden"  value="{{ movie.id }}" name="movie_id">
+        <textarea required name="review_text"> </textarea>
+        <button type="submit"> отправить </button>
+    </form>
+    <div>
+        {% for review in movie.review.all %}
+          <p>{{ review.author }}</p>
+          <p>{{ review.created_ad }}</p>
+          <p>{{ review.text }}</p>
+       
+        {% endfor %}
+      </div>
+ </section>
+   
+</body>
+</html>
